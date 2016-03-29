@@ -1,0 +1,22 @@
+{
+  "name": "node-web-scraper",
+  "version": "0.1.0",
+  "description": "An interactive node-based web scraper",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "dependencies": {
+    "babel-polyfill": "^6.7.2",
+    "body-parser": "latest",
+    "cheerio": "latest",
+    "cookie-parser": "latest",
+    "cookieparser": "^0.1.0",
+    "express": "latest",
+    "moment": "^2.12.0",
+    "nodemon": "latest",
+    "request": "latest"
+  },
+  "license": "MIT"
+}
