@@ -5,7 +5,8 @@ var cheerio = require('cheerio');
 var expressapp     = express();
 var bodyParser = require('body-parser');
 var moment = require('moment');
-var poly = require('babel-polyfill')
+var poly = require('babel-polyfill');
+var Firebase = require('firebase');
 
 //Configuring middleware
 expressapp.use(bodyParser())
@@ -23,10 +24,11 @@ expressapp.get('/data', function(req, res){
 
 //Demo of Request to hit a URL
 expressapp.get('/generate', function(req, res){
-   
-var a = moment('2016-01-01');
-var b = moment('2017-01-01');
-var allHolidays = {}
+var dataRef = new Firebase('https://holidays.firebaseio.com/');
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var a = moment('2016-04-01');
+var b = moment('2016-04-05');
+var allHolidays = {};
 
 // pure function ;-)
 var makeUrl = function(momentDate) {
@@ -46,7 +48,7 @@ var makeRequestPromise = function(url, date) {
 
             var $ = cheerio.load(html);
             var name, description, conditional;
-            var json = { name : "", description : "", conditional: null};
+            var json = { name : "", description : "", image : "", conditional: false};
             var holidays = [];
 
             $('#middle_content').each(function(){
@@ -62,14 +64,19 @@ var makeRequestPromise = function(url, date) {
                     json.name = name.indexOf('!') > -1 ? nameRegex.exec(name)[1] : null;
                     //json.source = source;
                     holidays.push(json)
-                    json = { name : "", description : "", conditional: null};
+                    json = { name : "", description : "", image : "", conditional: false};
                 }
                 
             });
-            
-              allHolidays[date.substring(0,5)] = holidays; //m.format('MM-DD-YYYY')
-                var dataToWrite = JSON.stringify(allHolidays, null, 4);
-                fs.writeFileSync('output.json', dataToWrite, 'utf8');
+            //Setup the month
+            var month = months[date.substring(0,2)-1]
+            var day = date.substring(3,5)
+            var dataToSync = {}
+            dataToSync[month] = {}
+            dataToSync[month][day] = holidays 
+            dataRef.set(dataToSync);
+                // var dataToWrite = JSON.stringify(allHolidays, null, 4);
+                // fs.writeFileSync('output.json', dataToWrite, 'utf8');
               // finish promise
           resolve('File write successfull ' + url);
         });
