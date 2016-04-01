@@ -14,12 +14,11 @@
 </body>
 <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 <script>
-var data = {};
 var myFirebaseRef = new Firebase("https://holidays.firebaseio.com/");
 
 function loadData() {
 	myFirebaseRef.child(getDate()).on("value", function(data) {
-		console.log(data.val());
+		renderData(data.val());
 	});
 }
 
@@ -28,13 +27,18 @@ function getDate () {
     var day = today.getDate();
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var month = months[today.getMonth()];
-
     // var yyyy = today.getFullYear();
-    if(day<10){
-        day='0'+ day;
-    } 
-
+    day<10 ? day='0'+ day : ''
     return month + '/' + day;
+}
+
+function renderData (data) {
+	for (i = 0; i < data.length; i++) {
+		var content = document.createElement('p');
+		content.className = 'whatever';
+		content.appendChild(document.createTextNode(data[i].name))
+		document.body.appendChild(content);
+	};
 }
 
 loadData()
