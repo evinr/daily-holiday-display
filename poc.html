@@ -4,6 +4,16 @@
 <title>Holiday Test</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style type="text/css"> 
+.display {
+	display:flex;
+	margin: 40px;
+}
+.display * {
+	margin-right: 10px;
+}
+p {
+	margin: 0;
+}
 </style>
 </head>
 <body>
@@ -34,9 +44,38 @@ function getDate () {
 
 function renderData (data) {
 	for (i = 0; i < data.length; i++) {
-		var content = document.createElement('p');
-		content.className = 'whatever';
-		content.appendChild(document.createTextNode(data[i].name))
+		//content div
+		var content = document.createElement('div');
+		content.className = 'display';
+
+			var holiday = document.createElement('p');
+			holiday.appendChild(document.createTextNode(data[i].name));
+			content.appendChild(holiday);
+
+			var descriptionMod = document.createElement('form');
+				var descriptionField = document.createElement('input');
+				descriptionField.placeholder = 'Type description here...';
+	    		descriptionField.type = 'text';
+	    		descriptionMod.appendChild(descriptionField);
+
+	    		var descriptionButton = document.createElement('input')
+	    		descriptionButton.type = 'button';
+				descriptionButton.value = 'update description';
+				descriptionMod.appendChild(descriptionButton);
+			content.appendChild(descriptionMod);
+
+			var conditionalMod = document.createElement('form');
+				var conditionalField = document.createElement('input');
+				conditionalField.placeholder = 'Type skill here...';
+	    		conditionalField.type = 'checkbox';
+	    		conditionalMod.appendChild(conditionalField);
+
+	    		var conditionalButton = document.createElement('input')
+	    		conditionalButton.type = 'button';
+				conditionalButton.value = 'update conditional';
+				conditionalMod.appendChild(conditionalButton);
+			content.appendChild(conditionalMod);
+
 		document.body.appendChild(content);
 	};
 }
