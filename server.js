@@ -24,10 +24,10 @@ expressapp.get('/data', function(req, res){
 
 //Demo of Request to hit a URL
 expressapp.get('/generate', function(req, res){
-var dataRef = new Firebase('https://holidays.firebaseio.com/');
+
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-var a = moment('2016-04-01');
-var b = moment('2016-04-05');
+var a = moment('2016-11-01');
+var b = moment('2017-01-01');
 var allHolidays = {};
 
 // pure function ;-)
@@ -68,17 +68,12 @@ var makeRequestPromise = function(url, date) {
                 }
                 
             });
-            //Setup the month
             var month = months[date.substring(0,2)-1]
             var day = date.substring(3,5)
-            var dataToSync = {}
-            dataToSync[month] = {}
-            dataToSync[month][day] = holidays 
-            dataRef.set(dataToSync);
-                // var dataToWrite = JSON.stringify(allHolidays, null, 4);
-                // fs.writeFileSync('output.json', dataToWrite, 'utf8');
-              // finish promise
-          resolve('File write successfull ' + url);
+        
+            var dataRef = new Firebase('https://holidays.firebaseio.com/' + month + '/' + day);
+            dataRef.set(holidays);
+        resolve('File write successfull ' + url);
         });
     });
 };

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Holiday Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style type="text/css"> 
+</style>
+</head>
+<body>
+<h1>
+	Today's Reason's to Celebrate
+</h1>
+	
+</body>
+<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+<script>
+var data = {};
+var myFirebaseRef = new Firebase("https://holidays.firebaseio.com/");
+
+function loadData() {
+	myFirebaseRef.child(getDate()).on("value", function(data) {
+		console.log(data.val());
+	});
+}
+
+function getDate () {
+	var today = new Date();
+    var day = today.getDate();
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var month = months[today.getMonth()];
+
+    // var yyyy = today.getFullYear();
+    if(day<10){
+        day='0'+ day;
+    } 
+
+    return month + '/' + day;
+}
+
+loadData()
+
+</script>
+</html>
