@@ -13,6 +13,7 @@
 }
 p {
 	margin: 0;
+	width: 50%;
 }
 </style>
 </head>
@@ -20,7 +21,8 @@ p {
 <h1>
 	Today's Reason's to Celebrate
 </h1>
-	
+<section class='content'>
+</section>
 </body>
 <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 <script>
@@ -30,22 +32,42 @@ var myFirebaseRef = new Firebase("https://holidays.firebaseio.com/");
 function loadData() {
 	//when this data is updated, the socket fires this vvv function
 	myFirebaseRef.child(DATE).on("value", function(data) {
-		//need to clean the dom to prep for repopulation
-		var child = document.getElementsByClassName('display')[0];
-		if (child) {
-			document.body.removeChild(child);
+		if (document.getElementsByClassName('display')[0]) { //Does not execute on first render
+			document.body.removeChild(child);		//need to clean the dom to prep for repopulation
+			var section = document.createElement('section');
+			section.className = 'content';
+			document.body.appendChild(section);
 		}
 		
 		renderData(data.val());
 	});
 }
 
-function updateDescription (targetElementNumber) {
-	var holidayRef = myFirebaseRef.child(DATE + '/' + targetElementNumber);
-	//console.log(document.getElementById('text-' + targetElementNumber).value)
-	holidayRef.update({
-	  "description": document.getElementById('text-' + targetElementNumber).value
-	});
+function updateDescription (targetId) {
+	var targetElementNumber = targetId.split('-')[1]
+	var targetField = targetId.split('-')[0];
+	var whiteListForInputs = [
+		'description',
+		'conditional',
+		'image',
+		'fake'
+	];
+	var whiteListForChecked = [//for checkboxes to use more symantic html interactions
+		'conditional',
+		'fake'
+	];
+
+	if (whiteListForInputs.indexOf(targetField) > -1) {
+		var holidayRef = myFirebaseRef.child(DATE + '/' + targetElementNumber);
+		var holObj = {};
+		if (whiteListForChecked.indexOf(targetField) > -1) {
+			holObj[targetField] = document.getElementById(targetField + '_input-' + targetElementNumber).checked;
+		}
+		else {
+			holObj[targetField] = document.getElementById(targetField + '_input-' + targetElementNumber).value;
+		}
+		holidayRef.update(holObj);
+	}
 }
 
 function getDate () {
@@ -67,6 +89,11 @@ function renderData (data) {
 			var holiday = document.createElement('p');
 			holiday.appendChild(document.createTextNode(data[i].name));
 			content.appendChild(holiday);
+			content.addEventListener("click", function(e){
+					console.log(e)
+			    	updateDescription(e.srcElement.id)
+			    	//call update description here
+				});
 
 			var descriptionMod = document.createElement('form');
 				var descriptionField = document.createElement('input');
@@ -78,33 +105,42 @@ function renderData (data) {
 				}
 				descriptionField.placeholder = 'Type description here...';
 	    		descriptionField.type = 'text';
-	    		descriptionField.id = 'text-' + i;
+	    		descriptionField.id = 'description_input-' + i;
 	    		descriptionMod.appendChild(descriptionField);
 
 	    		var descriptionButton = document.createElement('input')
 	    		descriptionButton.type = 'button';
 				descriptionButton.value = 'update description';
-				descriptionButton.id = i;
-				descriptionButton.addEventListener("click", function(e){
-			    	updateDescription(e.srcElement.id)
-			    	//call update description here
-				});
+				descriptionButton.id = 'description-' + i;
+				// descriptionButton.addEventListener("click", function(e){
+				// 	console.log(e)
+			 //    	//updateDescription(e.srcElement.id)
+			 //    	//call update description here
+				// });
 				descriptionMod.appendChild(descriptionButton);
 			content.appendChild(descriptionMod);
 
 			var conditionalMod = document.createElement('form');
 				var conditionalField = document.createElement('input');
-				conditionalField.placeholder = 'Type skill here...';
 	    		conditionalField.type = 'checkbox';
+	    		conditionalField.id = 'conditional_input-' + i;
 	    		conditionalMod.appendChild(conditionalField);
 
-	    		var conditionalButton = document.createElement('input')
+				// var label = document.createElement('label')
+				// label.htmlFor = "id";
+				// label.appendChild(document.createTextNode('text for label after checkbox'));
+				// container.appendChild(checkbox);
+				// container.appendChild(label);
+
+	    		var conditionalButton = document.createElement('input');
 	    		conditionalButton.type = 'button';
 				conditionalButton.value = 'update conditional';
-				conditionalMod.appendChild(conditionalButton);
+				conditionalButton.id = 'conditional-' + i;
+ 				conditionalMod.appendChild(conditionalButton);
 			content.appendChild(conditionalMod);
 
-		document.body.appendChild(content);
+		var target = document.getElementsByClassName('content')[0];
+		target.appendChild(content);
 	};
 }
 
