@@ -48,7 +48,7 @@ var makeRequestPromise = function(url, date) {
 
             var $ = cheerio.load(html);
             var name, description, conditional;
-            var json = { name : "", description : "", image : "", conditional: false};
+            var json = { name : "", description : "We need your help to populate the descriptions! Please feel free to double-click to update the description for this holiday. :)", image : "", conditional: false};
             var holidays = [];
 
             $('#middle_content').each(function(){
@@ -64,7 +64,7 @@ var makeRequestPromise = function(url, date) {
                     json.name = name.indexOf('!') > -1 ? nameRegex.exec(name)[1] : null;
                     //json.source = source;
                     holidays.push(json)
-                    json = { name : "", description : "", image : "", conditional: false};
+                    json = { name : "", description : "We need your help to populate the descriptions! Please feel free to double-click to update the description for this holiday. :)", image : "", conditional: false};
                 }
                 
             });

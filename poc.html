@@ -24,11 +24,27 @@ p {
 </body>
 <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 <script>
+var DATE = getDate(); //needs to be globally defined to avoid the wrong keys being used when updating a description on different days than the page was loaded on.
 var myFirebaseRef = new Firebase("https://holidays.firebaseio.com/");
 
 function loadData() {
-	myFirebaseRef.child(getDate()).on("value", function(data) {
+	//when this data is updated, the socket fires this vvv function
+	myFirebaseRef.child(DATE).on("value", function(data) {
+		//need to clean the dom to prep for repopulation
+		var child = document.getElementsByClassName('display')[0];
+		if (child) {
+			document.body.removeChild(child);
+		}
+		
 		renderData(data.val());
+	});
+}
+
+function updateDescription (targetElementNumber) {
+	var holidayRef = myFirebaseRef.child(DATE + '/' + targetElementNumber);
+	//console.log(document.getElementById('text-' + targetElementNumber).value)
+	holidayRef.update({
+	  "description": document.getElementById('text-' + targetElementNumber).value
 	});
 }
 
@@ -54,13 +70,25 @@ function renderData (data) {
 
 			var descriptionMod = document.createElement('form');
 				var descriptionField = document.createElement('input');
+				if (data[i].description !== ''){
+					descriptionField.value = data[i].description;
+				}
+				else {
+					descriptionField.value = 'This holiday does not have a description yet. Please feel free to contribute by adding one!';
+				}
 				descriptionField.placeholder = 'Type description here...';
 	    		descriptionField.type = 'text';
+	    		descriptionField.id = 'text-' + i;
 	    		descriptionMod.appendChild(descriptionField);
 
 	    		var descriptionButton = document.createElement('input')
 	    		descriptionButton.type = 'button';
 				descriptionButton.value = 'update description';
+				descriptionButton.id = i;
+				descriptionButton.addEventListener("click", function(e){
+			    	updateDescription(e.srcElement.id)
+			    	//call update description here
+				});
 				descriptionMod.appendChild(descriptionButton);
 			content.appendChild(descriptionMod);
 
