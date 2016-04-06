@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Today's Holidays</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<style type="text/css">
-
-</style>
-</head>
-<body>
-	<section class='container'>
-	</section>
-</body>
-
-<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
-	 <script src='./resources/app.js'></script>
-    <link rel='stylesheet' type='text/css' href='./resources/style.css'>
-<script>
 var DATE = getDate(); //needs to be globally defined to avoid the wrong keys being used when updating a description on different days than the page was loaded on.
 var myFirebaseRef = new Firebase("https://holidays.firebaseio.com/");
 
@@ -74,25 +56,6 @@ function getDate () {
 
 function renderData (data) {
 	for (i = 0; i < data.length; i++) {
-	// <div class='card'>
-		// 	<div class='image'> 
-		// 		<div class='scrim'>
-		// 		</div>
-		// 		<h2>
-		// 			Number 1 Title
-		// 		</h2>
-		// 	</div>
-		// 	<div class='content'>
-		// 		<p>
-		// 			I am a description that is scraped from the first main block of text through the link!
-		// 		</p>
-		// 		<div class='buttons material-buttons'>
-		// 			<button class='flat-button'>
-		// 				Learn More
-		// 			</button>
-		// 		</div>
-		// 	</div>
-	// </div>
 
 		var card = document.createElement('div');
 		card.className = 'card';
@@ -182,5 +145,3 @@ function renderData (data) {
 }
 
 loadData()
-</script>
-</html>

@@ -1,0 +1,91 @@
+/* -----------Smartphone View----------- */ 
+@media only screen and (max-width : 480px)   {
+	.card {
+		width: 100%;
+	}
+}
+
+/* -----------Desktop View----------- */ 
+@media only screen and (min-width : 481px)   {
+	.card {
+		width: 40%;
+	}
+}
+
+/* -----------Universal Views----------- */ 
+html, body, .content { 
+   height: 100%;
+   margin: 0 auto;
+   background-color: rgba(189, 195, 199,1.0);
+   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+}
+
+
+
+.card {
+	/*height: 40%;  Height cannot be used due to the fact that it scales based on content */
+	padding-bottom: 125px; /*by using padding-bottom the positioning allows for content to be rendered consistanly */
+	/*               ^^^ needs to be pixels to get a static size to reduce jank during reflow */
+	background: #fff;
+	margin: 5%;
+	position: relative; /* the container needs to be needs to be relative if the contents will be absolute */
+	float: left;
+	overflow: hidden;
+	border-radius: 2px;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	font-size: 0.9em;
+	transition: width .2s linear;
+}
+
+.content {
+	position: absolute; /* needs to be absolute so the parent container does not use it in sizing calculations */
+	/* margin: 2%; */
+	display: flex;
+	flex-direction: column;
+	height: 0%;
+}
+
+.content p {
+	margin: 1em;
+}
+
+.image {
+	width:100%;
+	height: 19vh;
+	background-image: url('http://skanditra.se/wp-content/uploads/2014/07/Holiday1.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.image h2 {
+	margin: -46px 15px;
+    font-size: 4vmin;
+    color: white;
+}
+
+.scrim {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.buttons {
+	display: flex;
+	justify-content: flex-end;
+	align-content: flex-end;
+	align-self: flex-end;
+	margin-right: 1em;
+}
+
+.flat-button {
+	border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    outline: 0;
+/*     padding: 0 2rem;
+ */    text-transform: uppercase;
+        box-shadow: none;
+    background-color: transparent;
+}
