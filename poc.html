@@ -74,6 +74,7 @@ function getDate () {
 	var today = new Date();
     var day = today.getDate();
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    //need to use the string literals, as firebase does not support 01/01, only January/01
     var month = months[today.getMonth()];
     // var yyyy = today.getFullYear();
     day<10 ? day='0'+ day : ''
@@ -90,7 +91,8 @@ function renderData (data) {
 			holiday.appendChild(document.createTextNode(data[i].name));
 			content.appendChild(holiday);
 			content.addEventListener("click", function(e){
-			    	updateDescription(e.srcElement.id)
+				console.log(e)
+			    	//updateDescription(e.srcElement.id)
 				});
 
 			var descriptionMod = document.createElement('form');

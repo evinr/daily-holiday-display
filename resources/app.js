@@ -60,8 +60,9 @@ function renderData (data) {
 		var card = document.createElement('div');
 		card.className = 'card';
 		card.addEventListener("click", function(event){
-			updateListener(event.srcElement.id)
-		});
+					console.log('card')
+					// updateListener(event.srcElement.id)
+				});
 
 
 			var image = document.createElement('div');
@@ -93,7 +94,13 @@ function renderData (data) {
 					var button = document.createElement('button');
 					button.className = 'flat-button';
 					button.appendChild(document.createTextNode('Learn More'));
+					button.addEventListener("click", function(event){
+						console.log('button')
+        				//window.open('https://www.google.com/webhp?ion=1&espv=2&ie=UTF-8#q=' + data[i].name,'_blank');
+    				});
+					// button.onclick=function(){console.log('asdfasdf')}
 					learnButton.appendChild(button);
+
 
 				content.appendChild(learnButton);
 
@@ -145,3 +152,8 @@ function renderData (data) {
 }
 
 loadData()
+
+document.body.addEventListener("click", function(event){
+			console.log('body')
+			// updateListener(event.srcElement.id)
+		});
