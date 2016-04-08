@@ -10,7 +10,6 @@ function loadData() {
 			section.className = 'container';
 			document.body.appendChild(section);
 		}
-		
 		renderData(data.val());
 	});
 }
@@ -59,11 +58,6 @@ function renderData (data) {
 
 		var card = document.createElement('div');
 		card.className = 'card';
-		card.addEventListener("click", function(event){
-					console.log('card')
-					// updateListener(event.srcElement.id)
-				});
-
 
 			var image = document.createElement('div');
 			image.className = 'image';
@@ -76,7 +70,6 @@ function renderData (data) {
 				title.appendChild(document.createTextNode(data[i].name));
 				image.appendChild(title);
 
-
 			card.appendChild(image);
 
 			var content = document.createElement('div');
@@ -88,22 +81,16 @@ function renderData (data) {
 
 				content.appendChild(description)
 
-				var learnButton = document.createElement('div');
-				learnButton.className = 'buttons flat-button';
+					var learnButton = document.createElement('div');
+					learnButton.className = 'buttons flat-button';
 
-					var button = document.createElement('button');
-					button.className = 'flat-button';
-					button.appendChild(document.createTextNode('Learn More'));
-					button.addEventListener("click", function(event){
-						console.log('button')
-        				//window.open('https://www.google.com/webhp?ion=1&espv=2&ie=UTF-8#q=' + data[i].name,'_blank');
-    				});
-					// button.onclick=function(){console.log('asdfasdf')}
+						var button = document.createElement('button');
+						button.className = 'flat-button';
+						button.appendChild(document.createTextNode('Learn More'));
+
 					learnButton.appendChild(button);
 
-
 				content.appendChild(learnButton);
-
 
 			card.appendChild(content);
 			
