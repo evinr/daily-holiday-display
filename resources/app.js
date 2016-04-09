@@ -4,7 +4,7 @@ var myFirebaseRef = new Firebase("https://holidays.firebaseio.com/");
 function loadData() {
 	//when this data is updated, the socket fires this vvv function
 	myFirebaseRef.child(DATE).on("value", function(data) {
-		if (document.getElementsByClassName('display')[0]) { //Does not execute on first render
+		if (document.getElementsByClassName('card')[0]) { //Does not execute on first render
 			document.body.removeChild(child);		//need to clean the dom to prep for repopulation
 			var section = document.createElement('section');
 			section.className = 'container';
@@ -65,6 +65,17 @@ function renderData (data) {
 				var scrim = document.createElement('div');
 				scrim.className = 'scrim';
 				image.appendChild(scrim);
+
+				var menu = document.createElement('div');
+				menu.className = 'menu';
+
+					for (n = 0; n < 3; n++) {
+						var dot = document.createElement('div');
+						dot.className = 'menu-dot';
+						menu.appendChild(dot);
+					}
+
+				image.appendChild(menu);
 
 				var title = document.createElement('h2');
 				title.appendChild(document.createTextNode(data[i].name));

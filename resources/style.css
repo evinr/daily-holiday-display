@@ -89,3 +89,19 @@ html, body, .content {
         box-shadow: none;
     background-color: transparent;
 }
+
+.menu {
+	float: right;
+	height: 75px;
+	width: 18px;
+	margin-top: -190px;
+}
+
+.menu-dot {
+	border-radius: 50%;
+	margin-bottom: 3px;
+	height: 7px;
+	width: 7px;
+	background-color: white;
+
+}
