@@ -10,7 +10,7 @@ function loadData() {
 			section.className = 'container';
 			document.body.appendChild(section);
 		}
-		else {
+		else { // Removes the loading animation from the dom
 			var child = document.getElementsByClassName('loader')[0];
 			document.body.removeChild(child);
 		}
@@ -31,6 +31,15 @@ function updateListener (targetId) {
 		'conditional',
 		'fake'
 	];
+	if (targetField === 'menu') {
+		//launch the modal
+		var modal = document.getElementsByClassName('modalDialog')[0];
+		modal.className += ' modalDialog-active';
+	}
+	if (targetField === 'close') {
+		var modal = document.getElementsByClassName('modalDialog')[0];
+		modal.className = 'modalDialog';
+	}
 
 	if (whiteListForInputs.indexOf(targetField) > -1) {
 		var holidayRef = myFirebaseRef.child(DATE + '/' + targetElementNumber);
@@ -64,6 +73,10 @@ function renderData (data) {
 		card.className = 'card';
 
 			var image = document.createElement('div');
+			if (data[i].image !== '') {
+				//update the background image
+				image.style.backgroundImage = 'url("' + data[i].image + '")';
+			}
 			image.className = 'image';
 
 				var scrim = document.createElement('div');
@@ -71,6 +84,7 @@ function renderData (data) {
 				image.appendChild(scrim);
 
 				var menu = document.createElement('div');
+				menu.id = 'menu-' + i;
 				menu.className = 'menu';
 
 					for (n = 0; n < 3; n++) {
@@ -91,7 +105,7 @@ function renderData (data) {
 			content.className = 'content';
 
 				var description = document.createElement('p')
-					var text = data[i].description !== ''? data[i].description : 'This holiday does not have a description yet. Please feel free to contribute by adding one!';
+					var text = data[i].description !== '' ? data[i].description : 'This holiday does not have a description yet. Please feel free to contribute by adding one!';
 				description.appendChild(document.createTextNode(text));
 
 				content.appendChild(description)
@@ -109,53 +123,13 @@ function renderData (data) {
 
 			card.appendChild(content);
 			
-			// var descriptionMod = document.createElement('form');
-			// 	var descriptionField = document.createElement('input');
-			// 	if (data[i].description !== ''){
-			// 		descriptionField.value = data[i].description;
-			// 	}
-			// 	else {
-			// 		descriptionField.value = 'This holiday does not have a description yet. Please feel free to contribute by adding one!';
-			// 	}
-			// 	descriptionField.placeholder = 'Type description here...';
-	  //   		descriptionField.type = 'text';
-	  //   		descriptionField.id = 'description_input-' + i;
-	  //   		descriptionMod.appendChild(descriptionField);
-
-	  //   		var descriptionButton = document.createElement('input')
-	  //   		descriptionButton.type = 'button';
-			// 	descriptionButton.value = 'update description';
-			// 	descriptionButton.id = 'description-' + i;
-			// 	descriptionMod.appendChild(descriptionButton);
-			// content.appendChild(descriptionMod);
-
-			// var conditionalMod = document.createElement('form');
-			// 	var conditionalField = document.createElement('input');
-	  //   		conditionalField.type = 'checkbox';
-	  //   		conditionalField.id = 'conditional_input-' + i;
-	  //   		conditionalMod.appendChild(conditionalField);
-
-			// 	// var label = document.createElement('label')
-			// 	// label.htmlFor = "id";
-			// 	// label.appendChild(document.createTextNode('text for label after checkbox'));
-			// 	// container.appendChild(checkbox);
-			// 	// container.appendChild(label);
-
-	  //   		var conditionalButton = document.createElement('input');
-	  //   		conditionalButton.type = 'button';
-			// 	conditionalButton.value = 'update conditional';
-			// 	conditionalButton.id = 'conditional-' + i;
- 		// 		conditionalMod.appendChild(conditionalButton);
-			// content.appendChild(conditionalMod);
-
 		var target = document.getElementsByClassName('container')[0];
 		target.appendChild(card);
 	};
 }
 
-loadData()
+loadData();
 
 document.body.addEventListener("click", function(event){
-			console.log('body')
-			// updateListener(event.srcElement.id)
-		});
+	updateListener(event.srcElement.id || event.srcElement.parentNode.id)
+});
