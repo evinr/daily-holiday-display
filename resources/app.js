@@ -10,6 +10,10 @@ function loadData() {
 			section.className = 'container';
 			document.body.appendChild(section);
 		}
+		else {
+			var child = document.getElementsByClassName('loader')[0];
+			document.body.removeChild(child);
+		}
 		renderData(data.val());
 	});
 }
