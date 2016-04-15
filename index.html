@@ -84,8 +84,22 @@
 	<div class="modalDialog">
 		<div>
 			<a id="close" title="Close" class="close">X</a>
-			<h2>Modal Box</h2>
-			<p>Use me to provide an explicit interaction that the user can click close or press escape to leave, but cannot click outside to close as it is not a11y for non-visual users.</p>
+			<h2>Holiday Data Editor</h2>
+			<form onsubmit='return false';>
+				<label>Holiday<input type='text'></label>
+				
+				<label>Description <input type='text'></label>
+				
+				<label>Image <input type='text'></label>
+				
+				<label>Conditional Holiday?<input type='checkbox'></label>
+				
+				<label>Fake Holiday?<input type='checkbox'></label>
+				
+				<input type='submit' class='form-button' value='Submit'>
+			</form>
+
+			<p>Use the form above to update the information stored on the holiday.</p>
 		</div>
 	</div>
 </body>

@@ -35,10 +35,26 @@ function updateListener (targetId) {
 		//launch the modal
 		var modal = document.getElementsByClassName('modalDialog')[0];
 		modal.className += ' modalDialog-active';
+
+		//update the form on the modal to match the data element that will be modified.
+		var button = document.getElementsByClassName('form-button')[0];
+		button.id = 'button-' + targetElementNumber;
+		//update the values of the form with what is in firebase
 	}
+	
 	if (targetField === 'close') {
-		var modal = document.getElementsByClassName('modalDialog')[0];
-		modal.className = 'modalDialog';
+		resetForm();
+	}
+
+	if (targetField === 'button') {
+		//grab the contents of the form
+		var holidayRef = myFirebaseRef.child(DATE + '/' + targetElementNumber);
+		var holObj = {};
+		//shove all the contents up into the object
+		holidayRef.update(holObj);
+
+		resetForm();
+
 	}
 
 	if (whiteListForInputs.indexOf(targetField) > -1) {
@@ -52,6 +68,11 @@ function updateListener (targetId) {
 		}
 		holidayRef.update(holObj);
 	}
+}
+
+function resetForm () {
+	var modal = document.getElementsByClassName('modalDialog')[0];
+	modal.className = 'modalDialog';
 }
 
 function getDate () {
