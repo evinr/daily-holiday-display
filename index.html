@@ -85,16 +85,16 @@
 		<div>
 			<a id="close" title="Close" class="close">X</a>
 			<h2>Holiday Data Editor</h2>
-			<form onsubmit='return false';>
-				<label>Holiday<input type='text'></label>
+			<form id='editor' onsubmit='return false';>
+				<label>Holiday<input type='text' id='holiday'></label>
 				
-				<label>Description <input type='text'></label>
+				<label>Description <input type='text' id='description' maxlength='240'></label>
 				
-				<label>Image <input type='text'></label>
+				<label>Image <input type='text' id='image'></label>
 				
-				<label>Conditional Holiday?<input type='checkbox'></label>
+				<label>Conditional Holiday?<input type='checkbox' id='conditional'></label>
 				
-				<label>Fake Holiday?<input type='checkbox'></label>
+				<label>Fake Holiday?<input type='checkbox' id='fake'></label>
 				
 				<input type='submit' class='form-button' value='Submit'>
 			</form>

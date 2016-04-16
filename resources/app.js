@@ -40,6 +40,15 @@ function updateListener (targetId) {
 		var button = document.getElementsByClassName('form-button')[0];
 		button.id = 'button-' + targetElementNumber;
 		//update the values of the form with what is in firebase
+
+		myFirebaseRef.child(DATE + '/' + targetElementNumber).on("value", function(data) {
+
+			document.getElementById('holiday').value = data.val().name;
+			document.getElementById('description').value = data.val().description;
+			document.getElementById('image').value = data.val().image;
+			document.getElementById('conditional').checked = data.val().conditional;
+		});
+
 	}
 	
 	if (targetField === 'close') {
@@ -50,24 +59,19 @@ function updateListener (targetId) {
 		//grab the contents of the form
 		var holidayRef = myFirebaseRef.child(DATE + '/' + targetElementNumber);
 		var holObj = {};
+
 		//shove all the contents up into the object
+		holObj['name'] = document.getElementById('holiday').value;
+		holObj['description'] = document.getElementById('description').value;
+		holObj['image'] = document.getElementById('image').value;
+		holObj['conditional'] = document.getElementById('conditional').checked;
+		holObj['fake'] = document.getElementById('fake').checked;
 		holidayRef.update(holObj);
-
+		//console.log(holObj)
 		resetForm();
-
+		loadData();
 	}
 
-	if (whiteListForInputs.indexOf(targetField) > -1) {
-		var holidayRef = myFirebaseRef.child(DATE + '/' + targetElementNumber);
-		var holObj = {};
-		if (whiteListForChecked.indexOf(targetField) > -1) {
-			holObj[targetField] = document.getElementById(targetField + '_input-' + targetElementNumber).checked;
-		}
-		else {
-			holObj[targetField] = document.getElementById(targetField + '_input-' + targetElementNumber).value;
-		}
-		holidayRef.update(holObj);
-	}
 }
 
 function resetForm () {

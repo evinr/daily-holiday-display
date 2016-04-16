@@ -94,7 +94,7 @@ html, body, .content {
 	float: right;
 	height: 75px;
 	width: 18px;
-	margin-top: -190px;
+	margin-top: -183px;
 }
 
 .menu-dot {
@@ -149,4 +149,5 @@ html, body, .content {
 
 form label {
 	display: block;
+	width: 100%;
 }
