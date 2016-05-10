@@ -3,6 +3,14 @@
 	.card {
 		width: 90%;
 	}
+
+	div.image {
+		height: 34vh
+	}
+
+/* 	div.menu {
+		margin-top: -102px;
+	} */
 }
 
 /* -----------Desktop View----------- */ 
@@ -58,7 +66,7 @@ html, body, .content {
 }
 
 .image h2 {
-	margin: -46px 15px;
+	margin: -33px 15px;
     font-size: 20px;
     color: white;
 }
@@ -130,10 +138,10 @@ html, body, .content {
 	}
 
 	.modalDialog > div {
-	    width: 400px;
+	    width: 85%;
 	    position: relative;
 	    margin: 10% auto;
-	    padding: 5px 20px 13px 20px;
+	    padding: 5px 10px 13px 20px;
 	    border-radius: 3px;
 	    background: #fff;
 	}

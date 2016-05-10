@@ -21,16 +21,7 @@ function loadData() {
 function updateListener (targetId) {
 	var targetElementNumber = targetId.split('-')[1]
 	var targetField = targetId.split('-')[0];
-	var whiteListForInputs = [
-		'description',
-		'conditional',
-		'image',
-		'fake'
-	];
-	var whiteListForChecked = [//for checkboxes to use more symantic html interactions
-		'conditional',
-		'fake'
-	];
+
 	if (targetField === 'menu') {
 		//launch the modal
 		var modal = document.getElementsByClassName('modalDialog')[0];
@@ -42,7 +33,6 @@ function updateListener (targetId) {
 		//update the values of the form with what is in firebase
 
 		myFirebaseRef.child(DATE + '/' + targetElementNumber).on("value", function(data) {
-
 			document.getElementById('holiday').value = data.val().name;
 			document.getElementById('description').value = data.val().description;
 			document.getElementById('image').value = data.val().image;
@@ -72,6 +62,16 @@ function updateListener (targetId) {
 		loadData();
 	}
 
+	if (targetField === 'learn') {
+		var queryParam = encodeURI(document.getElementById('menu-' + targetElementNumber).nextSibling.innerHTML);
+		window.open('https://www.google.com/search?q=' + queryParam)
+	}
+
+}
+
+//This function is used to determine if the title on a card is hanging off the bottom
+function adjustTitles(element){
+	return element.clientHeight > 30;
 }
 
 function resetForm () {
@@ -140,6 +140,7 @@ function renderData (data) {
 
 						var button = document.createElement('button');
 						button.className = 'flat-button';
+						button.id = 'learn-' + i;
 						button.appendChild(document.createTextNode('Learn More'));
 
 					learnButton.appendChild(button);
@@ -150,6 +151,12 @@ function renderData (data) {
 			
 		var target = document.getElementsByClassName('container')[0];
 		target.appendChild(card);
+		//check for sloppy titles
+		var titleElement = document.getElementById('menu-' + i).nextSibling;
+		if (this.adjustTitles(titleElement)) {
+			//update the style to have margin: -58px 15px
+			titleElement.style.margin = '-58px 15px';
+		}
 	};
 }
 
