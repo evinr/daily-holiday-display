@@ -8,6 +8,10 @@
 		height: 34vh
 	}
 
+	div.modalDialog > div {
+	    width: 85%;
+	}
+
 }
 
 /* -----------Desktop View----------- */ 
@@ -135,7 +139,7 @@ html, body, .content {
 	}
 
 	.modalDialog > div {
-	    width: 85%;
+	    width: 300px;
 	    position: relative;
 	    margin: 10% auto;
 	    padding: 5px 10px 13px 20px;
