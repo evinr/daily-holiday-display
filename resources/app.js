@@ -165,3 +165,13 @@ loadData();
 document.body.addEventListener("click", function(event){
 	updateListener(event.srcElement.id || event.srcElement.parentNode.id)
 });
+
+//TODO's
+
+// Attach event listener to window for resize event to re-align the titles on the cards
+
+// Style the form in material UI
+
+// Description and Image selector tools
+
+// 

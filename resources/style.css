@@ -8,9 +8,6 @@
 		height: 34vh
 	}
 
-/* 	div.menu {
-		margin-top: -102px;
-	} */
 }
 
 /* -----------Desktop View----------- */ 
@@ -88,21 +85,21 @@ html, body, .content {
 .flat-button {
 	border: none;
     border-radius: 2px;
-    display: inline-block;
-    height: 36px;
-    line-height: 36px;
     outline: 0;
 /*     padding: 0 2rem;
  */    text-transform: uppercase;
         box-shadow: none;
     background-color: transparent;
+    position: absolute;
+    width: 120px;
+    bottom: -59px;
+    right: -8px;
 }
 
 .menu {
-	float: right;
-	height: 75px;
-	width: 18px;
-	margin-top: -183px;
+	position: absolute;
+	right: 7px;
+	top: 7px;
 }
 
 .menu-dot {
