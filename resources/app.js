@@ -57,9 +57,8 @@ function updateListener (targetId) {
 		holObj['conditional'] = document.getElementById('conditional').checked;
 		holObj['fake'] = document.getElementById('fake').checked;
 		holidayRef.update(holObj);
-		//console.log(holObj)
 		resetForm();
-		loadData();
+		setTimeout(loadData(), 1000);
 	}
 
 	if (targetField === 'learn') {
@@ -71,7 +70,26 @@ function updateListener (targetId) {
 
 //This function is used to determine if the title on a card is hanging off the bottom
 function adjustTitles(element){
-	return element.clientHeight > 30;
+	var titleElement = document.getElementById('menu-' + element).nextSibling;
+	//four lines @ ~ 99
+	if (titleElement.clientHeight > 95) {
+		titleElement.style.margin = '-108px 15px';
+	}
+
+	//three lines @ ~ 74
+	else if (titleElement.clientHeight > 70) {
+		titleElement.style.margin = '-83px 15px';
+	}
+
+	// two lines @ ~ 49
+	else if (titleElement.clientHeight > 45) {
+		titleElement.style.margin = '-58px 15px';
+	}
+
+	//one line @ ~ 25
+	else if(titleElement.clientHeight < 30) {
+		titleElement.style.margin = '-33px 15px';
+	}
 }
 
 function resetForm () {
@@ -135,28 +153,19 @@ function renderData (data) {
 
 				content.appendChild(description)
 
-					var learnButton = document.createElement('div');
-					learnButton.className = 'buttons flat-button';
+					var button = document.createElement('button');
+					button.className = 'flat-button';
+					button.id = 'learn-' + i;
+					button.appendChild(document.createTextNode('Learn More'));
 
-						var button = document.createElement('button');
-						button.className = 'flat-button';
-						button.id = 'learn-' + i;
-						button.appendChild(document.createTextNode('Learn More'));
-
-					learnButton.appendChild(button);
-
-				content.appendChild(learnButton);
+				content.appendChild(button);
 
 			card.appendChild(content);
 			
 		var target = document.getElementsByClassName('container')[0];
 		target.appendChild(card);
 		//check for sloppy titles
-		var titleElement = document.getElementById('menu-' + i).nextSibling;
-		if (this.adjustTitles(titleElement)) {
-			//update the style to have margin: -58px 15px
-			titleElement.style.margin = '-58px 15px';
-		}
+		this.adjustTitles(i)
 	};
 }
 
@@ -166,9 +175,16 @@ document.body.addEventListener("click", function(event){
 	updateListener(event.srcElement.id || event.srcElement.parentNode.id)
 });
 
-//TODO's
+window.addEventListener("resize", function() {
+	//determine how many elements are on the page
+	console.log('resize')
+	var elementsNumber = document.getElementsByClassName('card').length;
+	for (var i = 0; i < elementsNumber; i++) {
+		this.adjustTitles(i)
+	}
+});
 
-// Attach event listener to window for resize event to re-align the titles on the cards
+//TODO's
 
 // Style the form in material UI
 

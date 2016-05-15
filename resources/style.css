@@ -5,7 +5,11 @@
 	}
 	/* Switch to a responsive height attribute */
 	div.image {
-		height: 34vh
+		height: 34vh;
+	}
+
+	div.content {
+		height: 25%;
 	}
 
 	div.modalDialog > div {
@@ -22,7 +26,7 @@
 }
 
 /* -----------Universal Views----------- */ 
-html, body, .content { 
+html, body { 
    height: 100%;
    margin: 0 auto;
    background-color: rgba(189, 195, 199,1.0);
@@ -43,15 +47,16 @@ html, body, .content {
 	border-radius: 2px;
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 	font-size: 0.9em;
-	transition: width .2s linear;
+	transition: width .5s linear;
 }
 
 .content {
 	position: absolute; /* needs to be absolute so the parent container does not use it in sizing calculations */
 	/* margin: 2%; */
-	display: flex;
-	flex-direction: column;
-	height: 0%;
+/* 	display: flex;
+	flex-direction: column; */
+	height: 39%;
+	width: 100%;
 }
 
 .content p {
@@ -79,10 +84,11 @@ html, body, .content {
 }
 
 .buttons {
-	display: flex;
+/* 	display: flex;
 	justify-content: flex-end;
 	align-content: flex-end;
-	align-self: flex-end;
+	align-self: flex-end; */
+	float: right;
 	margin-right: 1em;
 }
 
@@ -94,10 +100,10 @@ html, body, .content {
  */    text-transform: uppercase;
         box-shadow: none;
     background-color: transparent;
-    position: absolute;
     width: 120px;
-    bottom: -59px;
-    right: -10px;
+    position: absolute;
+    bottom: 7px;
+    right: -5px;
 }
 
 .menu {

@@ -22,6 +22,65 @@ expressapp.get('/data', function(req, res){
     res.send(file);
 })
 
+expressapp.get('/image', function(req, res){
+    var makeRequestPromise = function(url) {
+        return new Promise(function(resolve, reject) {
+            request(url, function(error, response, html){
+                if(error){
+                    return reject(error);     
+                }
+
+                var $ = cheerio.load(html);
+                var data;
+                var url;
+                var newUrl;
+                var image;
+                var thumbnail;
+                var ratio;
+                //  vvv this is the code block where all of the images begin
+                $('#ires').each(function(){
+                    data = $(this);
+                    //data.children('2').children()._root['0'].children[0].children; // all of the rows of images
+                    // the list above could be used to scrap all of the possible results
+                    // then save them and allow for a slider-type selector when editing the cards
+                    data2 = data
+                    url = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].attribs.href;
+                    thumbnail = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.src;
+                    var height = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.height;
+                    var width = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.width;
+                    ratio = height / width; // need to determine what is an optimal range for this
+                    console.log(ratio)
+
+                    url = encodeURIComponent(url.split('q=')[1].split('&sa=')[0]);
+                    newUrl = 'https://www.google.com/imgres?imgrefurl=' + url + '&docid=MDVYRDoBVoAF8M&tbnid=qdCOD0oG-v-WJM%3A';
+                    // this is the url that will display a link to the image directly. 
+                    // Due to the fact that Google provides a different response to the express server's request 
+                    // a headless browser will need to be used to get at the actual image file
+                });
+
+            resolve('visited here: ' + newUrl);
+            });
+        });
+    };
+
+    var promises = [];
+    var url = 'https://www.google.com/search?q=Peace+Officers+Memorial+Day&client=ubuntu&hs=iOs&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj_9oydwtvMAhVKzmMKHfmyBNwQ_AUIBygB&biw=1463&bih=908#tbm=isch&q=Peace+Officers+memorial&imgrc=hXTHR00uxNbKyM%3A'
+
+        promises.push(
+            makeRequestPromise( url )
+        ); 
+
+    Promise.all(promises)
+      .catch(function(err){ return console.error('Error in Promises.all()',err); })
+      .then(function(msg) {
+            // ^^ 'msg' param is an array of returned values
+        console.log(msg); // array of resolve(msg) from above..
+      });
+
+        res.write('checking for images');
+        res.end();
+})
+
 //Demo of Request to hit a URL
 expressapp.get('/generate', function(req, res){
 
@@ -71,7 +130,7 @@ var makeRequestPromise = function(url, date) {
             var month = months[date.substring(0,2)-1]
             var day = date.substring(3,5)
         
-            var dataRef = new Firebase('https://holidays.firebaseio.com/' + month + '/' + day);
+            var dataRef = new Firebase('https://holiday5.firebaseio.com/' + month + '/' + day);
             dataRef.set(holidays);
         resolve('File write successfull ' + url);
         });
