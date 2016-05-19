@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var moment = require('moment');
 var poly = require('babel-polyfill');
 var Firebase = require('firebase');
+var base64Img = require('base64-img');
+// var casper = require('./node_modules/casperjs').create();
 
 //Configuring middleware
 expressapp.use(bodyParser())
@@ -33,9 +35,9 @@ expressapp.get('/image', function(req, res){
                 var $ = cheerio.load(html);
                 var data;
                 var url;
-                var newUrl;
+                var preprocessedImageLocation;
                 var image;
-                var thumbnail;
+                var thumbnailUrl;
                 var ratio;
                 //  vvv this is the code block where all of the images begin
                 $('#ires').each(function(){
@@ -43,22 +45,27 @@ expressapp.get('/image', function(req, res){
                     //data.children('2').children()._root['0'].children[0].children; // all of the rows of images
                     // the list above could be used to scrap all of the possible results
                     // then save them and allow for a slider-type selector when editing the cards
-                    data2 = data
                     url = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].attribs.href;
-                    thumbnail = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.src;
+                    thumbnailUrl = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.src;
                     var height = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.height;
                     var width = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.width;
                     ratio = height / width; // need to determine what is an optimal range for this
-                    console.log(ratio)
+
 
                     url = encodeURIComponent(url.split('q=')[1].split('&sa=')[0]);
-                    newUrl = 'https://www.google.com/imgres?imgrefurl=' + url + '&docid=MDVYRDoBVoAF8M&tbnid=qdCOD0oG-v-WJM%3A';
-                    // this is the url that will display a link to the image directly. 
-                    // Due to the fact that Google provides a different response to the express server's request 
-                    // a headless browser will need to be used to get at the actual image file
+                    preprocessedImageLocation = 'https://www.google.com/imgres?imgrefurl=' + url + '&docid=MDVYRDoBVoAF8M&tbnid=qdCOD0oG-v-WJM%3A';
+                    console.log(preprocessedImageLocation)
+                    // casper.start(preprocessedImageLocation, function () {
+                    //     this.capture('./output/screenshot.png');
+                    // })
+                    // casper.run();
+                    // save thumbnailUrl and preprocessedImageLocation to something that can be passed to casper
+                    // casper: ^^ base64 that,  ^^ get the actual resource and base64 it, 
+                    // save ratio to firebase
+                     
                 });
 
-            resolve('visited here: ' + newUrl);
+            resolve('visited and generated');
             });
         });
     };

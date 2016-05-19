@@ -9,7 +9,9 @@
   "author": "",
   "dependencies": {
     "babel-polyfill": "^6.7.2",
+    "base64-img": "^1.0.3",
     "body-parser": "latest",
+    "casperjs": "^1.1.1",
     "cheerio": "latest",
     "cookie-parser": "latest",
     "cookieparser": "^0.1.0",
@@ -17,6 +19,7 @@
     "firebase": "^2.4.2",
     "moment": "^2.12.0",
     "nodemon": "latest",
+    "phantomjs-prebuilt": "^2.1.7",
     "request": "latest"
   },
   "license": "MIT"
