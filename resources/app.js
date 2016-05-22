@@ -69,26 +69,30 @@ function updateListener (targetId) {
 }
 
 //This function is used to determine if the title on a card is hanging off the bottom
-function adjustTitles(element){
-	var titleElement = document.getElementById('menu-' + element).nextSibling;
-	//four lines @ ~ 99
-	if (titleElement.clientHeight > 95) {
-		titleElement.style.margin = '-108px 15px';
-	}
+function adjustTitles(){
+		//determine how many elements are on the page
+	var elementsNumber = document.getElementsByClassName('card').length;
+	for (var i = 0; i < elementsNumber; i++) {
+		var titleElement = document.getElementById('menu-' + i).nextSibling;
+		//four lines @ ~ 99
+		if (titleElement.clientHeight > 95) {
+			titleElement.style.margin = '-108px 15px';
+		}
 
-	//three lines @ ~ 74
-	else if (titleElement.clientHeight > 70) {
-		titleElement.style.margin = '-83px 15px';
-	}
+		//three lines @ ~ 74
+		else if (titleElement.clientHeight > 70) {
+			titleElement.style.margin = '-83px 15px';
+		}
 
-	// two lines @ ~ 49
-	else if (titleElement.clientHeight > 45) {
-		titleElement.style.margin = '-58px 15px';
-	}
+		// two lines @ ~ 49
+		else if (titleElement.clientHeight > 45) {
+			titleElement.style.margin = '-58px 15px';
+		}
 
-	//one line @ ~ 25
-	else if(titleElement.clientHeight < 30) {
-		titleElement.style.margin = '-33px 15px';
+		//one line @ ~ 25
+		else if(titleElement.clientHeight < 30) {
+			titleElement.style.margin = '-33px 15px';
+		}
 	}
 }
 
@@ -165,7 +169,7 @@ function renderData (data) {
 		var target = document.getElementsByClassName('container')[0];
 		target.appendChild(card);
 		//check for sloppy titles
-		this.adjustTitles(i)
+		this.adjustTitles();
 	};
 }
 
@@ -176,12 +180,11 @@ document.body.addEventListener("click", function(event){
 });
 
 window.addEventListener("resize", function() {
-	//determine how many elements are on the page
-	console.log('resize')
-	var elementsNumber = document.getElementsByClassName('card').length;
-	for (var i = 0; i < elementsNumber; i++) {
-		this.adjustTitles(i)
-	}
+	this.adjustTitles();
+});
+
+window.addEventListener("orientationchange", function() {
+	this.adjustTitles();
 });
 
 //TODO's
