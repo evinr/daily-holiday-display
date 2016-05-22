@@ -8,6 +8,14 @@
 		height: 34vh;
 	}
 
+	div.content {
+		height: 25%;
+	}
+	/*fix for mobile rendering */
+	button.flat-button {
+		bottom:-36px;
+	}
+
 	div.modalDialog > div {
 	    width: 85%;
 	}

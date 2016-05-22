@@ -179,11 +179,13 @@ document.body.addEventListener("click", function(event){
 	updateListener(event.srcElement.id || event.srcElement.parentNode.id)
 });
 
+// this listener gets fired off once per browser resize or device orientation change
 window.addEventListener("resize", function() {
 	this.adjustTitles();
 });
 
-window.addEventListener("orientationchange", function() {
+// this listener gets fired off once per element transistion finishing, ensuring the style clean up is always ran when something changes
+window.addEventListener("transitionend", function() {
 	this.adjustTitles();
 });
 
