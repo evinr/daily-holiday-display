@@ -65,7 +65,7 @@ expressapp.get('/image', function(req, res){
                      
                 });
 
-            resolve('visited and generated');
+            resolve(thumbnailUrl);
             });
         });
     };
@@ -81,7 +81,9 @@ expressapp.get('/image', function(req, res){
       .catch(function(err){ return console.error('Error in Promises.all()',err); })
       .then(function(msg) {
             // ^^ 'msg' param is an array of returned values
-        console.log(msg); // array of resolve(msg) from above..
+        console.log('asdf'); // array of resolve(msg) from above..
+        // res.write(msg);
+        // res.end();
       });
 
         res.write('checking for images');

@@ -4,23 +4,24 @@
   "description": "An interactive node-based web scraper",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/casperjs casper.js"
   },
   "author": "",
   "dependencies": {
     "babel-polyfill": "^6.7.2",
     "base64-img": "^1.0.3",
     "body-parser": "latest",
-    "casperjs": "^1.1.1",
     "cheerio": "latest",
     "cookie-parser": "latest",
     "cookieparser": "^0.1.0",
     "express": "latest",
     "firebase": "^2.4.2",
+    "jssha": "^2.1.0",
     "moment": "^2.12.0",
     "nodemon": "latest",
-    "phantomjs-prebuilt": "^2.1.7",
-    "request": "latest"
+    "request": "latest",
+    "tineye": "^0.1.0"
   },
   "license": "MIT"
 }
