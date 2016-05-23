@@ -74,25 +74,29 @@ function adjustTitles(){
 	var elementsNumber = document.getElementsByClassName('card').length;
 	for (var i = 0; i < elementsNumber; i++) {
 		var titleElement = document.getElementById('menu-' + i).nextSibling;
-		//four lines @ ~ 99
-		if (titleElement.clientHeight > 95) {
-			titleElement.style.margin = '-108px 15px';
-		}
+		this.applyAdjustedTileStyles(titleElement);
+	}
+}
 
-		//three lines @ ~ 74
-		else if (titleElement.clientHeight > 70) {
-			titleElement.style.margin = '-83px 15px';
-		}
+function applyAdjustedTileStyles(titleElement) {
+	//four lines @ ~ 99
+	if (titleElement.clientHeight > 95) {
+		titleElement.style.margin = '-108px 15px';
+	}
 
-		// two lines @ ~ 49
-		else if (titleElement.clientHeight > 45) {
-			titleElement.style.margin = '-58px 15px';
-		}
+	//three lines @ ~ 74
+	else if (titleElement.clientHeight > 70) {
+		titleElement.style.margin = '-83px 15px';
+	}
 
-		//one line @ ~ 25
-		else if(titleElement.clientHeight < 30) {
-			titleElement.style.margin = '-33px 15px';
-		}
+	// two lines @ ~ 49
+	else if (titleElement.clientHeight > 45) {
+		titleElement.style.margin = '-58px 15px';
+	}
+
+	//one line @ ~ 25
+	else if(titleElement.clientHeight < 30) {
+		titleElement.style.margin = '-33px 15px';
 	}
 }
 
@@ -130,7 +134,7 @@ function renderData (data) {
 				scrim.className = 'scrim';
 				image.appendChild(scrim);
 
-				var menu = document.createElement('div');
+				var menu = document.createElement('button');
 				menu.id = 'menu-' + i;
 				menu.className = 'menu';
 
@@ -157,14 +161,14 @@ function renderData (data) {
 
 				content.appendChild(description)
 
-					var button = document.createElement('button');
-					button.className = 'flat-button';
-					button.id = 'learn-' + i;
-					button.appendChild(document.createTextNode('Learn More'));
-
-				content.appendChild(button);
-
 			card.appendChild(content);
+
+				var button = document.createElement('button');
+				button.className = 'flat-button';
+				button.id = 'learn-' + i;
+				button.appendChild(document.createTextNode('Learn More'));
+
+			card.appendChild(button);
 			
 		var target = document.getElementsByClassName('container')[0];
 		target.appendChild(card);
@@ -185,8 +189,11 @@ window.addEventListener("resize", function() {
 });
 
 // this listener gets fired off once per element transistion finishing, ensuring the style clean up is always ran when something changes
-window.addEventListener("transitionend", function() {
-	this.adjustTitles();
+window.addEventListener("transitionend", function(event) {
+	// console.log(event.srcElement.children[0].children[2].id)
+	if (!event.srcElement.children[0].children[2].id) {
+		this.applyAdjustedTileStyles(event.srcElement.children[0].children[2]);
+	}
 });
 
 //TODO's
