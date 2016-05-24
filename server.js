@@ -24,6 +24,10 @@ expressapp.get('/data', function(req, res){
     res.send(file);
 })
 
+expressapp.get('/outgoing', function(req, res){
+    //This is a sample to determine what needs to be done for an outgoing post request
+})
+
 expressapp.get('/image', function(req, res){
     var makeRequestPromise = function(url) {
         return new Promise(function(resolve, reject) {
@@ -35,7 +39,6 @@ expressapp.get('/image', function(req, res){
                 var $ = cheerio.load(html);
                 var data;
                 var url;
-                var preprocessedImageLocation;
                 var image;
                 var thumbnailUrl;
                 var ratio;
@@ -51,17 +54,21 @@ expressapp.get('/image', function(req, res){
                     var width = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.width;
                     ratio = height / width; // need to determine what is an optimal range for this
 
+                    // filter on ratio of less than 1
+                    if (ration < 1) {
+                        // grab the thumbnails from google and store them as base 64
 
-                    url = encodeURIComponent(url.split('q=')[1].split('&sa=')[0]);
-                    preprocessedImageLocation = 'https://www.google.com/imgres?imgrefurl=' + url + '&docid=MDVYRDoBVoAF8M&tbnid=qdCOD0oG-v-WJM%3A';
-                    console.log(preprocessedImageLocation)
-                    // casper.start(preprocessedImageLocation, function () {
-                    //     this.capture('./output/screenshot.png');
-                    // })
-                    // casper.run();
-                    // save thumbnailUrl and preprocessedImageLocation to something that can be passed to casper
-                    // casper: ^^ base64 that,  ^^ get the actual resource and base64 it, 
-                    // save ratio to firebase
+
+                        // optional: analyze the images based on the criteria for the cards
+
+                        // reverse image search via TinEye
+                            //https://services.tineye.com/developers/tineyeapi/authentication.html#post-request-example
+
+                        // store the full size image
+
+
+
+                    }
                      
                 });
 
