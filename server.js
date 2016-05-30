@@ -24,8 +24,36 @@ expressapp.get('/data', function(req, res){
     res.send(file);
 })
 
+expressapp.get('/tineye', function(req, res){
+    //This is a sample to determine what needs to be done for an outgoing post request to Tin Eye
+    /*
+    - public key: 1CMUPjlfBm*vL9ZvSqJO
+    - private key: vibaHBXwUXFqVSg-+kTrqYJZEJkbVeqLc=bo.LlX
+    - offset: 0
+    - limit: 30
+    - image data filename: Tineye Logo.png
+    - date: 1350511031
+    - nonce: wAqXrSG7mJPn5YA6cwDalG.S
+*/
+    request(' http://api.tineye.com/rest/search/ ', function(error, response, html){
+        
+    })
+
+})
+
 expressapp.get('/outgoing', function(req, res){
-    //This is a sample to determine what needs to be done for an outgoing post request
+    //This is a sample to determine what needs to be done for an outgoing post request to Tin Eye
+    /*
+    - public key: 1CMUPjlfBm*vL9ZvSqJO
+    - private key: vibaHBXwUXFqVSg-+kTrqYJZEJkbVeqLc=bo.LlX
+    - offset: 0
+    - limit: 30
+    - image data filename: Tineye Logo.png
+    - date: 1350511031
+    - nonce: wAqXrSG7mJPn5YA6cwDalG.S
+*/
+    request.post(' http://api.tineye.com/rest/search/ ', {form:{key:'value'}})
+
 })
 
 expressapp.get('/image', function(req, res){

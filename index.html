@@ -84,22 +84,34 @@
 	<div class="modalDialog">
 		<div>
 			<a id="close" title="Close" class="close">X</a>
-			<h2>Holiday Data Editor</h2>
 			<form id='editor' onsubmit='return false';>
-				<label>Holiday<input type='text' id='holiday'></label>
-				
-				<label>Description <input type='text' id='description' maxlength='240'></label>
-				
-				<label>Image <input type='text' id='image'></label>
-				
-				<label>Conditional Holiday?<input type='checkbox' id='conditional'></label>
-				
-				<label>Fake Holiday?<input type='checkbox' id='fake'></label>
-				
-				<input type='submit' class='form-button' value='Submit'>
+				<h2>Holiday Data Editor</h2>
+				<p>Use the form above to update the information stored on the holiday.</p>
+				<fieldset class='material'>
+					<input type='text' id='holiday' required>
+					<hr>
+					<label>Holiday</label>
+				</fieldset>
+				<fieldset class='material'>
+					<input type='text' id='description' maxlength='240' required>
+					<hr>
+					<label>Description</label>
+				</fieldset>
+				<fieldset class='material'>
+					<input type='text' id='image' required>
+					<hr>
+					<label>Image</label>
+				</fieldset>
+				<div class="checkbox">
+					<label><input type='checkbox' id='conditional'><i class="helper"></i>Conditional Holiday?</label>
+				</div>
+				<div class="checkbox">
+					<label><input type='checkbox' id='fake'><i class="helper"></i>Fake Holiday?</label>
+				</div>
+
+				<input type='submit' class='form-button flat-button' value='Submit'>
 			</form>
 
-			<p>Use the form above to update the information stored on the holiday.</p>
 		</div>
 	</div>
 </body>
