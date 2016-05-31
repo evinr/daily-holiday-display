@@ -190,6 +190,10 @@ form {
   background: #FFF;
 }
 
+form h2 {
+	margin-top: -10px;
+}
+
 .material {
   position: relative;
   padding: 0;
