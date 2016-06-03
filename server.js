@@ -24,6 +24,23 @@ expressapp.get('/data', function(req, res){
     res.send(file);
 })
 
+expressapp.get('/flicker', function(req, res){
+    //This is a sample to determine what needs to be done for an outgoing post request to Tin Eye
+    /*
+    - public key: 1CMUPjlfBm*vL9ZvSqJO
+    - private key: vibaHBXwUXFqVSg-+kTrqYJZEJkbVeqLc=bo.LlX
+    - offset: 0
+    - limit: 30
+    - image data filename: Tineye Logo.png
+    - date: 1350511031
+    - nonce: wAqXrSG7mJPn5YA6cwDalG.S
+*/
+    request(' http://api.tineye.com/rest/search/ ', function(error, response, html){
+        
+    })
+
+})
+
 expressapp.get('/tineye', function(req, res){
     //This is a sample to determine what needs to be done for an outgoing post request to Tin Eye
     /*
@@ -81,18 +98,16 @@ expressapp.get('/image', function(req, res){
                     var height = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.height;
                     var width = data.children('2').children()._root['0'].children[0].children[0].children[0].children[0].children[0].attribs.width;
                     ratio = height / width; // need to determine what is an optimal range for this
+                    console.log(thumbnailUrl)
+                    
+                    //store what is above in an array
 
-                    // filter on ratio of less than 1
-                    if (ration < 1) {
-                        // grab the thumbnails from google and store them as base 64
 
 
-                        // optional: analyze the images based on the criteria for the cards
 
-                        // reverse image search via TinEye
-                            //https://services.tineye.com/developers/tineyeapi/authentication.html#post-request-example
-
-                        // store the full size image
+                    // filter on ratio of less than 1, ideal ratio is 2
+                    if (ratio < 1 && ratio > 2) {
+                        //Write these these to a flat file for later processing by casper
 
 
 
@@ -107,10 +122,15 @@ expressapp.get('/image', function(req, res){
 
     var promises = [];
     var url = 'https://www.google.com/search?q=Peace+Officers+Memorial+Day&client=ubuntu&hs=iOs&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj_9oydwtvMAhVKzmMKHfmyBNwQ_AUIBygB&biw=1463&bih=908#tbm=isch&q=Peace+Officers+memorial&imgrc=hXTHR00uxNbKyM%3A'
+    //https://www.google.com/search?q=National+Small+Business+Day&tbm=isch
+    var oneDaysPromises = [];
+    var fullDateRangeOfPromises = [];
 
-        promises.push(
-            makeRequestPromise( url )
+        promises.push( // fill up this array with the holidays from each day
+            makeRequestPromise( url ) //TODO: loope here
         ); 
+
+        // create an
 
     Promise.all(promises)
       .catch(function(err){ return console.error('Error in Promises.all()',err); })
