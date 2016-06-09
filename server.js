@@ -107,10 +107,8 @@ expressapp.get('/image', function(req, res){
 
                     // filter on ratio of less than 1, ideal ratio is 2
                     if (ratio < 1 && ratio > 2) {
-                        //Write these these to a flat file for later processing by casper
-
-
-
+                        // month / day / holidays.title == title
+                        
                     }
                      
                 });
