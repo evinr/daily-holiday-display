@@ -7,7 +7,7 @@
 	/* Switch to a responsive height attribute */
 	/* TODO: Make this a non-responsive height attribut. Cannot mix the percentage and the vh, as it will not render consistantly accross devices and browsers */
 	div.image {
-		height: 34vh;
+		height: 300px;
 	}
 
 	div.modalDialog > div {
