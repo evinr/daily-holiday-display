@@ -6,7 +6,7 @@
 	}
 
 	div.image {
-		height: 60vw; /* needs to be based off the width, as the height of the window is inconsistant on mobile
+		height: 60vw; /* needs to be based off the width, as the height of the window is inconsistant on mobile*/
 	}
 
 	div.modalDialog > div {
